@@ -28,6 +28,7 @@
     "@types/mkdirp": "^0.5.1",
     "@types/xml2js": "^0.4.0",
     "async": "^2.6.0",
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.17.2",
     "compression": "^1.7.0",
     "connect-flash": "^0.1.1",

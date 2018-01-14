@@ -6,42 +6,35 @@
  */
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const StationSchema = require('./station');
 
 const UserSchema = new Schema({
-  account: {
-    type: String,
-  },
   name: {
     type: String,
     trim: true,
     required: true,
   },
-  email: String,
   phone: {
     type: String,
+    required: true,
   },
-  residence: StationSchema,
-  bus: [{
-    station: StationSchema,
-    frequency: {
-      type: Number,
-      min: 1,
-    },
-    commutingType: String,
-    // 班次
-    bus: Schema.Types.ObjectId,
-  }],
+  hash: {
+    type: String,
+    required: true,
+  },
+  invited: {
+    type: [Schema.Types.ObjectId],
+    ref: 'User',
+  },
 });
-// bus object
-// { // 上车站点
-//     station: Schema.Types.ObjectId,
-//     frequency: {
-//       type: Number,
-//       min: 1,
-//     },
-//     commutingType: String,
-//     // 班次
-//     bus: Schema.Types.ObjectId,
-//   }
+
+UserSchema.virtual('phoneNum').set(function(value) {
+  this.name = value;
+})
+
+UserSchema.virtual('invitedCount').get(function() {
+  if(this.invited) {
+    return this.invited.length;
+  }
+})
+
 module.exports = UserSchema;

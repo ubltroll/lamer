@@ -10,6 +10,7 @@ const logger = require('../utils/log')('error');
 const { getOffset, getGridData, pickByAttrs } = require('../utils/common');
 const { toNumber, compact, pickBy, assignIn, includes } = require('lodash');
 const { identity, slice, map, set, compose } = require('lodash/fp');
+const bcrypt = require('bcryptjs');
 
 const userController = {
 
@@ -38,54 +39,43 @@ const userController = {
     }).catch(next);
   },
 
-  findOrCreateUser(option) {
+  create(req, resp, next) {
+    const body = req.body;
+    let findInvitor;
     db.User.findOne({
-      account: option.account
+      phone: body.phone
     }).then((user) => {
-      const newUser = new db.User(option);
       if(!user) {
-        return newUser.save();
+        // TODO 校验码比较
+        const salt = bcrypt.genSaltSync(10);
+        const newUser = new db.User({
+          phoneNum: body.phone,
+          hash: bcrypt.hashSync(body.pwd, salt),
+        });
+        if(body.invitor) {
+          findInvitor = db.User.findById(body.invitor);
+        }
+        return Promise.all([newUser.save(), findInvitor]);
       }
-    }).then((user) => {
-      console.log(`${user.account}用户创建成功!`);
+    }).then(([user, invitor]) => {
+      if(invitor) {
+        invitor.invited.push(user.id);
+        return Promise.all([user, invitor.save()]);
+      }else {
+        return Promise.all([user]);
+      }
+    }).then(([user]) => {
+      resp.success(`${user.name}用户创建成功！`);
     }).catch(err => {
       logger.error(err);
     });
   },
 
-  getEnrolls(req, resp, next) {
-    const userName = req.session.user.userName;
-    const query = req.query;
-    const offset = getOffset(query);
-    const limit = toNumber(query.limit);
-    db.User.findOne({
-      account: userName,
-    }).then(user => {
-      const count = user.bus.length;
-      const sliceBuses = (offset >= 0) && limit ? slice(offset, limit) : identity;
-      const getBuses = compose(map(({bus}) => bus && db.Bus.findById(bus)), sliceBuses);
-      return Promise.all([count, ...getBuses(user.bus)]);
-    }).then(params => {
-      const count = params[0];
-      const buses = compact(params.slice(1));
-      const getTypes = buses instanceof Array && buses.map(bus => db.ActivityType.findById(bus.activityType));
-      return Promise.all([buses, count, ...getTypes]);
-    }).then(params => {
-      const buses = params[0];
-      const count = params[1];
-      const types = params.slice(2);
-      const result = buses.map((bus, key) => {
-        const setType = set('activityType', types[key] && types[key].name);
-        const setIsApply = set('isApply', true);
-        const route = map((station) => assignIn(station, { longlat:`${station.longitude},${station.latitude}`}))(bus.route);
-        const setRoute = set('route', route);
-        return compose(setRoute, setIsApply, setType)(bus.toJSON());
-      });
-      resp.success(getGridData(compact(result), count));
-    }).catch(err => {
-      next(err);
-    })
+  login(req, resp, next) {
+    const body = req.body;
+
   },
+
 }
 
 module.exports = userController;
