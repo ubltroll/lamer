@@ -1,0 +1,22 @@
+{
+  "name": "lamer",
+  "version": "1.0.0",
+  "description": "lamer's profile site",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bellchet58/lamer.git"
+  },
+  "keywords": [
+    "lamer"
+  ],
+  "author": "bellchet58",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bellchet58/lamer/issues"
+  },
+  "homepage": "https://github.com/bellchet58/lamer#readme"
+}
