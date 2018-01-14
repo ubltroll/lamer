@@ -12,6 +12,5 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 config.log4js = log4jsConfig;
-config.users = require('./users');
 
 module.exports = config;
