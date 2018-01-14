@@ -11,6 +11,22 @@ const { getOffset, getGridData, pickByAttrs } = require('../utils/common');
 const { toNumber, compact, pickBy, assignIn, includes } = require('lodash');
 const { identity, slice, map, set, compose } = require('lodash/fp');
 const bcrypt = require('bcryptjs');
+const querystring = require('querystring');
+const https = require('https');
+
+const getSmsOption = (content) => {
+  return {
+    host:'sms-api.luosimao.com',
+    path:'/v1/send.json',
+    method:'POST',
+    auth:'api:key-442199e5d02324bc7d1ff2a2f675882e',
+    agent:false,
+    rejectUnauthorized : false,
+    headers:{
+    'Content-Type' : 'application/x-www-form-urlencoded',
+    'Content-Length' :content.length
+  }
+}
 
 const userController = {
 
@@ -90,6 +106,33 @@ const userController = {
     }).catch(err => {
       next(err);
     })
+  },
+
+  getCapcha(req, resp, next) {
+    const body = req.body;
+    const code = Math.random().toString().slice(-6);
+    // TODO 验证码存入数据库以及定时删除
+    const postData = {
+      mobile: body.phone,
+      message: `您的验证码为${code}请在5分钟内完成注册。【以太战舰】`
+    };
+    const content = querystring.stringify(postData);
+    const options = getSmsOption(content);
+    const smsReq = https.request(options, (res) => {
+      res.setEncoding('utf8');
+      res.on('data', (chunk) => {
+        if(chunk.error === 0) {
+          resp.success(SUCCESS);
+        }else {
+          resp.failed(chunk.msg);
+        }
+      });
+      res.on('end', () => {
+        console.log('over');
+      });
+    });
+    smsReq.write(content);
+    smsReq.end();
   },
 
 }
