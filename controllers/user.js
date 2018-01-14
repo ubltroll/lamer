@@ -67,13 +67,29 @@ const userController = {
     }).then(([user]) => {
       resp.success(`${user.name}用户创建成功！`);
     }).catch(err => {
-      logger.error(err);
+      next(err);
     });
   },
 
   login(req, resp, next) {
     const body = req.body;
-
+    db.User.findOne({
+      name: body.name,
+    }).then(user => {
+      if(!user) {
+        resp.failed(`不存在的账户！`);
+      }else {
+        // TODO 添加校验码比较
+        if(bcrypt.compareSync(body.pwd, user.hash)) {
+          req.session.user = user.toJSON();
+          resp.success('登录成功!');
+        }else {
+          resp.failed('密码不正确！');
+        }
+      }
+    }).catch(err => {
+      next(err);
+    })
   },
 
 }
