@@ -131,9 +131,8 @@
     
     <!-- JavaScript -->
     <script src="js/jquery-1.10.2.js"></script>
-    <script src="js/stickUp.min.js"></script>
     <script src="js/bootstrap.js"></script>
-    <script src="js/bootstrapValidator.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap-validator/0.5.3/js/bootstrapValidator.min.js"></script>
     <script>
         function cooldown(){   //冷却获取验证码按钮
             var btn = $('#getSMS');
@@ -184,6 +183,7 @@
             
             $('form').bootstrapValidator({
     　　　　　　　　message: '该字段不能为空',
+                    threshold :  4 ,
                     fields:{
                         Username: {
                              message:'用户名无效',
@@ -200,68 +200,92 @@
                                      regexp: /^[a-zA-Z0-9_\.]+$/,
                                      message: '用户名只能用字母和数字组成'
                                  },
-                                 threshold :  6 ,
-                             }
-                         },
-                         email: {
-                             validators: {
-                                 notEmpty: {
-                                     message: '邮件不能为空'
-                                 },
-                                 emailAddress: {
-                                     message: '请输入正确的邮件地址如：123@qq.com'
-                                 }
-                             }
-                         },
-                        Password: {
-                             message:'密码无效',
-                             validators: {
-                                 notEmpty: {
-                                     message: '密码不能为空'
-                                 },
-                                 stringLength: {
-                                     min: 6,
-                                     max: 30,
-                                     message: '密码长度必须大于6位'
-                                 },
                                  
-                                 different: {//不能和用户名相同
-                                     field: 'Username',//需要进行比较的input name值
-                                     message: '不能和用户名相同'
-                                 },
-                                 regexp: {
-                                     regexp: /^[a-zA-Z0-9_\.]+$/,
-                                     message: '密码只能用字母和数字组成'
-                                 }
-                             }
-                         },
-                         CPassword: {
-                             message:'密码无效',
-                             validators: {
-                                 identical: {//相同
-                                     field: 'Password', //需要进行比较的input name值
-                                     message: '两次密码不一致'
-                                 },
-                                 
-                            },
+                                 //TODO
+                                 remote: {//ajax验证。server result:{"valid",true or false} 向服务发送当前input name值，获得一个json数据。例表示正确：{"valid",true}  
+                                     url: 'TODO',//验证地址
+                                     message: '用户已存在',//提示消息
+                                     delay :  2000,
+
+                                     type: 'POST'//发送的信息是用户输入的用户名
+                                         }
+                             },
                          },
 
-                    }
-                    
+                             email: {
+                                 validators: {
+                                     notEmpty: {
+                                         message: '邮件不能为空'
+                                     },
+                                     emailAddress: {
+                                         message: '请输入正确的邮件地址如：123@qq.com'
+                                     }
+                                 }
+                             },
+                            Password: {
+                                 message:'密码无效',
+                                 validators: {
+                                     notEmpty: {
+                                         message: '密码不能为空'
+                                     },
+                                     stringLength: {
+                                         min: 6,
+                                         max: 30,
+                                         message: '密码长度必须大于6位'
+                                     },
+                                     
+                                     different: {//不能和用户名相同
+                                         field: 'Username',//需要进行比较的input name值
+                                         message: '不能和用户名相同'
+                                     },
+                                     regexp: {
+                                         regexp: /^[a-zA-Z0-9_\.]+$/,
+                                         message: '密码只能用字母和数字组成'
+                                     }
+                                 }
+                             },
+                             CPassword: {
+                                 message:'密码无效',
+                                 validators: {
+                                     identical: {//相同
+                                         field: 'Password', //需要进行比较的input name值
+                                         message: '两次密码不一致'
+                                     },
+                                     
+                                },
+                             },
+                            sms: {
+                                message:'验证码错误',
+                                validators: {
+                                     regexp: {
+                                         regexp: /^[0-9]+$/,
+                                         message: '验证码格式错误'
+                                     },
+                                     threshold :  4 ,
+                                     //TODO
+                                     remote: {//ajax验证。server result:{"valid",true or false} 向服务发送当前input name值，获得一个json数据。例表示正确：{"valid",true}  
+                                         url: 'TODO',//验证地址
+                                         message: '用户已存在',//提示消息
+                                         delay :  2000,
+                                         type: 'POST'//发送的信息是用户输入的验证码
+                                             }
+                                    }
+                                },
+                        }
                     
             });
             $("#submit").click(function(){  
                 if($('form').data("bootstrapValidator").isValid()){
                     alert('yibor');
+                    //TODO 提交表格
                 } 
                 
             }); 
-            $('.navbar-default').stickUp();
+            
         });
 
 	</script>
     
-	<script src="js/owl.carousel.js"></script>
 	<script src="js/script.js"></script>
 	
 
@@ -271,10 +295,7 @@
 	<script>
 	 new WOW().init();
 	</script>
-	<script src="js/classie.js"></script>
-	<script src="js/uiMorphingButton_inflow.js"></script>
-	<!-- Magnific Popup core JS file -->
-	<script src="js/jquery.magnific-popup.js"></script> 
+	
 
 
 
