@@ -14,6 +14,7 @@ $(window).load(function() {
 })
 
 $(document).ready(function() {
+		
 		//animated logo
 		$(".navbar-brand").hover(function () {
 			$(this).toggleClass("animated shake");
@@ -35,21 +36,7 @@ $(document).ready(function() {
 		$('.image-link').magnificPopup({type:'image'});
 
 
-		// OwlCarousel N1
-		$("#owl-demo").owlCarousel({
-			autoPlay: 3000,
-			items : 3,
-			itemsDesktop : [1199,3],
-			itemsDesktopSmall : [979,3]
-		});
-
-		// OwlCarousel N2
-		$("#owl-demo-1").owlCarousel({
-			  navigation : false, // Show next and prev buttons
-			  slideSpeed : 300,
-			  paginationSpeed : 400,
-			  singleItem:true
-		});
+		
 
 		//SmothScroll
 		$('a[href*=#]').click(function() {
@@ -65,12 +52,7 @@ $(document).ready(function() {
 			}
 		});
 		
-		//Subscribe
-		new UIMorphingButton( document.querySelector( '.morph-button' ) );
-		// for demo purposes only
-		[].slice.call( document.querySelectorAll( 'form button' ) ).forEach( function( bttn ) { 
-			bttn.addEventListener( 'click', function( ev ) { ev.preventDefault(); } );
-		} );
+		
 
 });
 

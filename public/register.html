@@ -15,8 +15,8 @@
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
- 
-    <!-- Custom Google Web Font -->
+    <link href="css/bootstrapValidator.min.css" rel="stylesheet" />
+        <!-- Custom Google Web Font -->
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Arvo:400,700' rel='stylesheet' type='text/css'>
@@ -35,6 +35,9 @@
 	<link rel="stylesheet" href="css/magnific-popup.css"> 
 	
 	<script src="js/modernizr-2.6.2.min.js"></script>  <!-- Modernizr /-->
+    
+
+
 </head>
 
 <body id="home">
@@ -63,63 +66,58 @@
 				<h2 style="font-size: 36px">注册</h2>
 				<p class="lead" style="margin-top:0">Sign Up</p>
 			 </div>
-			<form role="form" action="" onsubmit="" method="post" name="loginForm">
-				<div class="col-md-6 col-md-offset-3">
-					<div class="form-group ">
-						<label for="UserName">用户名</label>
-						<a id="unf" class='lead3' style="color: #ff3f3f"></a>
-						<div class="input-group col-sm-12">
-							<input type="text" class="form-control" name="UserName" id="UserName" placeholder="输入用户名" required>
-							<span class="input-group-addon"><i class="glyphicon glyphicon-ok form-control-feedback"></i></span>
-						</div>
-					</div>
-					
-					<div class="form-group">
-						<label for="Password">输入密码</label>
-						<a id="psdf" class='lead3' style="color: #ff3f3f"></a>
-						<div class="input-group  col-sm-12">
-							<input type="password" class="form-control" id="Password" name="Password" placeholder="输入密码" required >
-							<span class="input-group-addon"><i class="glyphicon glyphicon-ok form-control-feedback"></i></span>
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="ConfirmPassword">确认密码</label>							
-						<a id="cfpf" class='lead3' style="color: #ff3f3f"></a>
-						<div class="input-group  col-sm-12">
-							<input type="password" class="form-control" id="ConfirmPassword" name="ConfirmPassword" placeholder="确认密码" required >
-							<span class="input-group-addon"><i class="glyphicon glyphicon-ok form-control-feedback"></i></span>
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="Salesman">邀请人</label>
-						<a id="smanf" class='lead3' style="color: #ff3f3f"></a>
-						<div class="input-group col-sm-12">
-							<input type="text" class="form-control" name="Salesman" id="Salesman" placeholder="输入邀请人">
-							<span class="input-group-addon"><i class="glyphicon glyphicon-ok form-control-feedback"></i></span>
-						</div>
-					</div>
-					
-					<div class="form-group">
-						<label for="Phone">手机号</label>
-						<a id="phonef" class='lead3' style="color: #ff3f3f"></a>
-						<div class="input-group  col-sm-12">
-							<input type="text" class="form-control" id="Phone" name="Phone" placeholder="输入手机号" required >
-							<span class="input-group-addon"><i class="glyphicon glyphicon-ok form-control-feedback"></i></span>
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="sms">验证码</label>
-						<a id="smsf" class='lead3' style="color: #ff3f3f"></a>
-						<div class="input-group  col-sm-12">
-							<input type="text" class="form-control col-sm-8 pull-left" id="sms" name="sms" placeholder="输入验证码" required >
-							<span class="input-group-addon col-sm-offset-1"><i class="glyphicon glyphicon-ok form-control-feedback"></i></span>
-							<a  id='getSMS' type="button" class=" btn btn-info pull-right" onclick='getSMSfuc()' >获取验证码</a>
-						</div>
-					</div>
-					
-					<input type="submit" name="submit" id="submit" value="注册" class="btn wow tada btn-embossed btn-primary pull-right">
-				</div>
-			</form>
+             <div class="col-md-6 col-md-offset-3">
+                 <form id='RegForm'>
+                    <div class="form-group">
+                        <label>用户名</label>
+                        <input type="text" class="form-control" placeholder="请输入用户名" name="Username" required/>
+                    </div>
+                    <div class="form-group">
+                        <label>密码</label>
+                        <input type="password" class="form-control" placeholder="请输入密码" name="Password" required/>
+                    </div>
+                    <div class="form-group">
+                        <label>确认密码</label>
+                        <input type="password" class="form-control" placeholder="确认密码" name="CPassword" required/>
+                    </div>
+                    <div class="form-group">
+                        <label>电子邮箱</label>
+                        <input type="text" class="form-control" placeholder="请输入常用电子邮箱" name="email" required/>
+                    </div>
+                    <div class="form-group">
+                        <label>邀请ID</label>
+                        <input type="text" class="form-control" placeholder="如有请输入邀请人ID" name="AmwayID" />
+                    </div>
+                    <div class="form-group">
+                        <label for="Phone">手机号码</label>
+                        <input type="text" class="form-control" placeholder="请输入常用手机号" name="phone" id='Phone' required
+                        pattern="1[34578]\d{9}"
+                        data-bv-regexp-message="请输入正确的11位手机号"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="sms">验证码</label>
+                        <div class="form-inline row">
+                        
+                            <div class="form-group col-sm-6">
+                        
+                                <input type="text" class="form-control " id="sms" name="sms" placeholder="接收到的短信验证码" required data-bv-notempty-message="请输入验证码">
+                            
+                            </div>
+                            <div class="form-group col-md-3 col-md-offset-3">
+                                <button  id='getSMS' type="button" class="wow tada btn btn-info" onclick='getSMSfuc()' >获取验证码</button>
+                            </div> 
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="sms"> </label>
+                        <input type="submit" name="submit" id="submit" value="注册" class=" btn-block btn  btn-embossed btn-primary">
+                    </div>
+                </form>
+                    </div>
+                </div>
+                
+			
+
 			
 		</div>
 	</div>	
@@ -129,230 +127,144 @@
 	
 	
 
-
+    <!-- StikyMenu -->
+    
     <!-- JavaScript -->
     <script src="js/jquery-1.10.2.js"></script>
+    <script src="js/stickUp.min.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="js/bootstrapValidator.min.js"></script>
     <script>
-		function checkInput(txt){                              
-            if(txt.val()==""){  
-                txt.parent().parent()  
-                    .removeClass()
-                    .addClass("form-group has-error");  
-                return false;  
-            }else{  
-                txt.parent().parent()  
-                    .removeClass() 
-                    .addClass("form-group has-success");  
-                
-                return true;  
-            }  
-        }
-        function checkpd(){
-        	if($('#Password').val()==''){
-        		$('#Password').parent().parent()  
-                    .removeClass() 
-                    .addClass("form-group has-error");  
-                $('#psdf').text('密码不能为空');
-                return false; 
-        	}
-        	else if($('#Password').val().length < 8){  
-                $('#Password').parent().parent()  
-                    .removeClass()
-                    .addClass("form-group has-error");  
-                $('#psdf').text('密码不能短于8位');
-                return false;  
-            }
-            else{  
-                $('#Password').parent().parent()  
-                    .removeClass()
-                    .addClass("form-group has-success");  
-                $('#psdf').text('');
-                return true;  
-            }    
-        }
-        function checkphone(){
-        	if($('#Phone').val()==''){
-        		$('#Phone').parent().parent()  
-                    .removeClass() 
-                    .addClass("form-group has-error");  
-                $('#phonef').text('手机号不能为空');
-                return false; 
-        	}
-        	else if(!(/^1[34578]\d{9}$/.test($('#Phone').val()))){  
-                $('#Phone').parent().parent()  
-                    .removeClass()
-                    .addClass("form-group has-error");  
-                $('#phonef').text('手机号填写格式有误');
-                return false;  
-            }
-            else{  
-                $('#Phone').parent().parent()  
-                    .removeClass()
-                    .addClass("form-group has-success");  
-                $('#phonef').text('');
-                return true;  
-            }    
-        }
-        function checksman(){
-        	if($('#Salesman').val().length!= 5){
-        		$('#Salesman').parent().parent()  
-                    .removeClass() 
-                    .addClass("form-group has-error");  
-                $('#smanf').text('邀请人id有误');
-                return false; 
-        	}
-            else{  
-                $('#Salesman').parent().parent()  
-                    .removeClass()
-                    .addClass("form-group has-success");  
-                $('#smanf').text('');
-                return true;  
-            }    
-        }
-        
-        function checkuser(){
-        	if($('#UserName').val()==''){
-        		$('#UserName').parent().parent()  
-                    .removeClass() 
-                    .addClass("form-group has-error");  
-                $('#unf').text('用户名不能为空');
-                return false; 
-        	}
-        	else if($('#UserName').val().length < 5){  
-                $('#UserName').parent().parent()  
-                    .removeClass()
-                    .addClass("form-group has-error");  
-                $('#unf').text('用户名不能短于5个字符');
-                return false;  
-            }
-            else{  
-                $('#UserName').parent().parent()  
-                    .removeClass()
-                    .addClass("form-group has-success");  
-                $('#unf').text('');
-                return true;  
-            }    
-        }
- 
- 
-        function confirmpwd(){
-        	if($('#ConfirmPassword').val()==$('#Password').val()){
-        		$('#ConfirmPassword').parent().parent()  
-                    .removeClass()//验证成功后出现一个对号的小图标  
-                    .addClass("form-group has-success");  
-                $('#cfpf').text('');
-                return true; 
-        	}else{  
-                $('#ConfirmPassword').parent().parent()  
-                    .removeClass()//验证成功后出现一个对号的小图标  
-                    .addClass("form-group has-error");  
-                $('#cfpf').text('两次输入的密码不一致');
-                return false;  
-            }  
-        }
-
-
-        function checksms(){
-        	if(!checkphone()){
-        		$('#sms').parent().parent()  
-                    .removeClass() 
-                    .addClass("form-group has-error");  
-                $('#smsf').text('请先填写手机号');
-                return false; 
-        	}
-        	else if($('#sms').val()==''){
-        		$('#sms').parent().parent()  
-                    .removeClass() 
-                    .addClass("form-group has-error");  
-                $('#smsf').text('请填写收到的短信验证码');
-                return false; 
-        	} 
-            else{  
-                $('#sms').parent().parent()  
-                    .removeClass()
-                    .addClass("form-group has-success");  
-                $('#smsf').text('');
-                return true;  
-            }      
-        }
-        function getSMSfuc(){
-        	if(checkuser() && checkpd() &&confirmpwd() && checkphone()){  
-                //TODO  sent SMS
-
-
-
-
-               
-                //cooldown
-                var btn = $('#getSMS');
+        function cooldown(){   //冷却获取验证码按钮
+            var btn = $('#getSMS');
                 btn.attr('disabled', 'disabled');
                
-				var txt = btn.text();
-				var count = 60;
-				var func = function() {
-				    if (count == 0) {
-				        btn.removeAttr('disabled');
-				        btn.removeClass() 
-                    		.addClass("btn btn-info pull-right");
-				        btn.text(txt);
-				    } else {
-				    	btn.removeClass() 
+                var txt = btn.text();
+                var count = 60;
+                var func = function() {
+                    if (count == 0) {
+                        btn.removeAttr('disabled');
+                        btn.removeClass() 
+                            .addClass("btn btn-info pull-right");
+                        btn.text(txt);
+                    } else {
+                        btn.removeClass() 
                     .addClass("btn btn-default pull-right"); 
-				        btn.text(txt + ' (' + count + ')');
-				        count--;
-				        setTimeout(func, 1000);
-				    }
-				};
-				setTimeout(func, 0);
+                        btn.text(txt + ' (' + count + ')');
+                        count--;
+                        setTimeout(func, 1000);
+                    }
+                };
+
+                setTimeout(func, 0);
+                return false;
+
+        }
+        function getSMSfuc(){
+            phone=$('#Phone').val()
+        	if(!(/^1[34578]\d{9}$/.test(phone))){  
+                //TODO  sent SMS
+
+                alert('请输入正确的11位手机号');
+                return false; 
+				
                 }  
 
-
-
+                cooldown();
+                
                 return false;  
         }
 
         $(function(){  
           	$('#head').load('head.html') 
           	$('#footer').load('footer.html') 
-            $("#UserName").change(function(){checkuser();});  
-            $("#Password").change(function(){checkpd();});  
-            $("#Phone").change(function(){checkphone();}); 
-            $("#ConfirmPassword").change(function(){confirmpwd();});   
-            $("#sms").change(function(){checksms();}); 
+            
             //$("#Salesman").change(function(){checksman();});   
             //提交按钮事件，false:不能提交，抑制提交按钮  
+            
+            $('form').bootstrapValidator({
+    　　　　　　　　message: '该字段不能为空',
+                    fields:{
+                        Username: {
+                             message:'用户名无效',
+                             validators: {
+                                 notEmpty: {
+                                     message: '用户名不能为空'
+                                 },
+                                 stringLength: {
+                                     min: 6,
+                                     max: 12,
+                                     message: '用户名长度必须在6-12位之间'
+                                 },
+                                 regexp: {
+                                     regexp: /^[a-zA-Z0-9_\.]+$/,
+                                     message: '用户名只能用字母和数字组成'
+                                 },
+                                 threshold :  6 ,
+                             }
+                         },
+                         email: {
+                             validators: {
+                                 notEmpty: {
+                                     message: '邮件不能为空'
+                                 },
+                                 emailAddress: {
+                                     message: '请输入正确的邮件地址如：123@qq.com'
+                                 }
+                             }
+                         },
+                        Password: {
+                             message:'密码无效',
+                             validators: {
+                                 notEmpty: {
+                                     message: '密码不能为空'
+                                 },
+                                 stringLength: {
+                                     min: 6,
+                                     max: 30,
+                                     message: '密码长度必须大于6位'
+                                 },
+                                 
+                                 different: {//不能和用户名相同
+                                     field: 'Username',//需要进行比较的input name值
+                                     message: '不能和用户名相同'
+                                 },
+                                 regexp: {
+                                     regexp: /^[a-zA-Z0-9_\.]+$/,
+                                     message: '密码只能用字母和数字组成'
+                                 }
+                             }
+                         },
+                         CPassword: {
+                             message:'密码无效',
+                             validators: {
+                                 identical: {//相同
+                                     field: 'Password', //需要进行比较的input name值
+                                     message: '两次密码不一致'
+                                 },
+                                 
+                            },
+                         },
+
+                    }
+                    
+                    
+            });
             $("#submit").click(function(){  
-                if(checkuser() && checkpd()  &&confirmpwd()
-                	//&& checksman()
-              		 && checkphone() &&checksms()){  
-                    //信息填写完整
-
-
-                //TODO submit through ajax
-                	return true;
-                }
-                else{
-                	return false;  
-                }  
+                if($('form').data("bootstrapValidator").isValid()){
+                    alert('yibor');
+                } 
                 
             }); 
-            
+            $('.navbar-default').stickUp();
         });
+
 	</script>
-    <script src="js/bootstrap.js"></script>
+    
 	<script src="js/owl.carousel.js"></script>
 	<script src="js/script.js"></script>
-	<!-- StikyMenu -->
-	<script src="js/stickUp.min.js"></script>
-	<script type="text/javascript">
-	  jQuery(function($) {
-		$(document).ready( function() {
-		  $('.navbar-default').stickUp();
-		  
-		});
-	  });
 	
-	</script>
+
 	<!-- Smoothscroll -->
 	<script type="text/javascript" src="js/jquery.corner.js"></script> 
 	<script src="js/wow.min.js"></script>
@@ -364,36 +276,6 @@
 	<!-- Magnific Popup core JS file -->
 	<script src="js/jquery.magnific-popup.js"></script> 
 
-	<script type="text/javascript">
-
-		function checkLogin(){  
-            if(checkUsername() && checkPassword()){  
-                 alert("请输入密码")
-                 return true;  
-             }          
-            return false;  
-        }  
-        //检查登录用户名  
-        function checkUsername(){  
-            var username = document.loginForm.UserName;  
-            if(username.value.length!=0){  
-                return true;  
-            }else{  
-                alert("用户名不能为空");  
-                return false;  
-            }  
-        }  
-        //检查登录密码  
-        function checkPassword(){  
-            var password = document.loginForm.Password;  
-            if(password.value.length!=0){  
-                return true;  
-            }else{  
-                alert("密码不能为空");  
-                return false;  
-            }  
-        }
-	</script> 
 
 
 </body>

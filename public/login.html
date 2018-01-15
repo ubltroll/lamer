@@ -15,7 +15,7 @@
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
- 
+ 	<link href="css/bootstrapValidator.min.css" rel="stylesheet" />
     <!-- Custom Google Web Font -->
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic' rel='stylesheet' type='text/css'>
@@ -47,8 +47,6 @@
 	<div id='head'></div>
 	
 	
-
-
 	
 	
 	<div  class="content-section-b " style="background-color: #f8f8f8">
@@ -57,12 +55,12 @@
 				<h2 style="font-size: 36px">登陆</h2>
 				<p class="lead" style="margin-top:0">Login</p>
 			 </div>
-			<form role="form" action="" method="post" name="loginForm">
+			<form  id='loginForm'>
 				<div class="col-md-6 col-md-offset-3">
 					<div class="form-group">
 						<label for="UserName">用户名</label>
 						<div class="input-group col-sm-12">
-							<input type="text" class="form-control" name="name" id="UserName" placeholder="输入用户名" required>
+							<input type="text" class="form-control" name="UserName" id="UserName" placeholder="输入用户名" required>
 							
 						</div>
 					</div>
@@ -70,7 +68,7 @@
 					<div class="form-group">
 						<label for="Password">密码</label>
 						<div class="input-group  col-sm-12">
-							<input type="password" class="form-control" id="Password" name="pwd" placeholder="输入密码" required >
+							<input type="password" class="form-control" id="Password" name="Password" placeholder="输入密码" required >
 							
 						</div>
 					</div>
@@ -78,7 +76,7 @@
 					
 
           <div id="submit" class="btn wow tada btn-embossed btn-primary pull-left" style="width: 65px;display: inline-block;">登陆</div>
-					<a class="col-md-offset-1 btn btn-embossed btn-primary col-sm-offset-1">忘记密码</a>
+					<a class="col-md-offset-1 btn btn-embossed btn-primary col-sm-offset-1" href="forgetpwd.html">忘记密码</a>
 					<a class=" btn btn-embossed btn-info col-sm-offset-5" href="register.html">立刻注册</a>
 				</div>
 			</form>
@@ -94,25 +92,64 @@
 
     <!-- JavaScript -->
     <script src="js/jquery-1.10.2.js"></script>
+    <script src="js/stickUp.min.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="js/bootstrapValidator.min.js"></script>
+
+	<script src="js/script.js"></script>
     <script>
 		$(function(){
-			$('#head').load('head.html') 
-			$('#footer').load('footer.html')
+			$('#head').load('head.html');
+			$('#footer').load('footer.html');
+			
+			$('form').bootstrapValidator({
+    　　　　　　　　message: '该字段不能为空',
+    				fields:{
+                        UserName: {
+                             message:'用户名无效',
+                             validators: {
+                                 notEmpty: {
+                                     message: '用户名不能为空'
+                                 },
+                                 
+                                 threshold :  6 ,
+                             }
+                         },
+                         Password: {
+                             message:'密码无效',
+                             validators: {
+                                 notEmpty: {
+                                     message: '密码不能为空'
+                                 },
+                                 
+                                 threshold :  6 ,
+                             }
+                         },
+                    }
+			});
+			$('.navbar-default').stickUp();
 		})
+		$('#submit').on('click', function() {
+		      console.log('mmp');
+		      $.ajax({
+		        url: '/api/user/login',
+		        type: 'post',
+		        data: $('form').serialize(),
+		      }).then(function(resp) {
+		        if(resp.success) {
+		          alert('登录成功');
+		          //TODO 跳转到登录后的页面
+		        }else{
+		          alert(resp.msg);
+		        }
+		      })
+		    });
 	</script>
-    <script src="js/bootstrap.js"></script>
-	<script src="js/owl.carousel.js"></script>
-	<script src="js/script.js"></script>
-	<!-- StikyMenu -->
-	<script src="js/stickUp.min.js"></script>
-	<script type="text/javascript">
-	  jQuery(function($) {
-		$(document).ready( function() {
-		  $('.navbar-default').stickUp();
-		});
-	  })($);
+    
 	
-	</script>
+	<!-- StikyMenu -->
+	
+
 	<!-- Smoothscroll -->
 	<script type="text/javascript" src="js/jquery.corner.js"></script> 
 	<script src="js/wow.min.js"></script>
@@ -124,50 +161,7 @@
 	<!-- Magnific Popup core JS file -->
 	<script src="js/jquery.magnific-popup.js"></script> 
 
-	<script type="text/javascript">
-    function checkLogin(){  
-      if(checkUsername() && checkPassword()){  
-        alert("请输入密码")
-        return true;  
-      }          
-      return false;  
-    }  
-    //检查登录用户名  
-    function checkUsername(){  
-      var username = document.loginForm.UserName;  
-      if(username.value.length!=0){  
-        return true;  
-      }else{  
-        alert("用户名不能为空");  
-        return false;  
-      }  
-    }  
-    //检查登录密码  
-    function checkPassword(){  
-      var password = document.loginForm.Password;  
-      if(password.value.length!=0){  
-        return true;  
-      }else{  
-        alert("密码不能为空");  
-        return false;  
-      }  
-    };
-    $('#submit').on('click', function() {
-      console.log('mmp');
-      $.ajax({
-        url: '/api/user/login',
-        type: 'post',
-        data: $('form').serialize(),
-      }).then(function(resp) {
-        if(resp.success) {
-          alert('登录成功');
-          //TODO 跳转到登录后的页面
-        }else{
-          alert(resp.msg);
-        }
-      })
-    });
-  </script> 
+
 
 
 </body>

@@ -15,7 +15,7 @@
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
- 
+    <link href="css/bootstrapValidator.min.css" rel="stylesheet" />
     <!-- Custom Google Web Font -->
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic' rel='stylesheet' type='text/css'>
@@ -68,38 +68,43 @@
 				<div class="col-md-6 col-md-offset-3">
 					<div class="form-group ">
 						<label for="UserName">用户名</label>
-						<a id="unf" class='lead3' style="color: #ff3f3f"></a>
+						
 						<div class="input-group col-sm-12">
-							<input type="text" class="form-control" name="UserName" id="UserName" placeholder="输入用户名" required>
-							<span class="input-group-addon"><i class="glyphicon glyphicon-ok form-control-feedback"></i></span>
+							<input type="text" class="form-control" name="Username" id="UserName" placeholder="输入用户名" required>
+						
 						</div>
 					</div>
 					
 					
 					
 					<div class="form-group">
-						<label for="sms">验证码</label>
-						<a id="smsf" class='lead3' style="color: #ff3f3f"></a>
-						<div class="input-group  col-sm-12">
-							<input type="text" class="form-control col-sm-8 pull-left" id="sms" name="sms" placeholder="输入验证码" required >
-							<span class="input-group-addon col-sm-offset-1"><i class="glyphicon glyphicon-ok form-control-feedback"></i></span>
-							<a  id='getSMS' type="button" class=" btn btn-info pull-right" onclick='getSMSfuc()' >获取验证码</a>
-						</div>
-					</div>
+                        <label for="sms">验证码</label>
+                        <div class="form-inline row">
+                        
+                            <div class="form-group col-sm-6">
+                        
+                                <input type="text" class="form-control " id="sms" name="sms" placeholder="接收到的短信验证码" required data-bv-notempty-message="请输入验证码">
+                            
+                            </div>
+                            <div class="form-group col-md-3 col-md-offset-3">
+                                <button  id='getSMS' type="button" class="wow tada btn btn-info" onclick='getSMSfuc()' >获取验证码</button>
+                            </div> 
+                        </div>
+                    </div>
                     <div class="form-group">
                         <label for="Password">新密码</label>
-                        <a id="psdf" class='lead3' style="color: #ff3f3f"></a>
+                       
                         <div class="input-group  col-sm-12">
                             <input type="password" class="form-control" id="Password" name="Password" placeholder="输入新的密码" required disabled>
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-ok form-control-feedback"></i></span>
+                         
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="ConfirmPassword">确认密码</label>                           
-                        <a id="cfpf" class='lead3' style="color: #ff3f3f"></a>
+                    
                         <div class="input-group  col-sm-12">
                             <input type="password" class="form-control" id="ConfirmPassword" name="ConfirmPassword" placeholder="确认密码" required disabled>
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-ok form-control-feedback"></i></span>
+                          
                         </div>
                     </div>
 					
@@ -119,150 +124,46 @@
 
     <!-- JavaScript -->
     <script src="js/jquery-1.10.2.js"></script>
+    <script src="js/bootstrap.js"></script>
+     <script src="js/bootstrapValidator.min.js"></script>
     <script>
-		function checkInput(txt){                              
-            if(txt.val()==""){  
-                txt.parent().parent()  
-                    .removeClass()
-                    .addClass("form-group has-error");  
-                return false;  
-            }else{  
-                txt.parent().parent()  
-                    .removeClass() 
-                    .addClass("form-group has-success");  
-                
-                return true;  
-            }  
-        }
-        function checkpd(){
-        	if($('#Password').val()==''){
-        		$('#Password').parent().parent()  
-                    .removeClass() 
-                    .addClass("form-group has-error");  
-                $('#psdf').text('密码不能为空');
-                return false; 
-        	}
-        	else if($('#Password').val().length < 8){  
-                $('#Password').parent().parent()  
-                    .removeClass()
-                    .addClass("form-group has-error");  
-                $('#psdf').text('密码不能短于8位');
-                return false;  
-            }
-            else{  
-                $('#Password').parent().parent()  
-                    .removeClass()
-                    .addClass("form-group has-success");  
-                $('#psdf').text('');
-                return true;  
-            }    
-        }
-        
-        function checkuser(){
-        	if($('#UserName').val()==''){
-        		$('#UserName').parent().parent()  
-                    .removeClass() 
-                    .addClass("form-group has-error");  
-                $('#unf').text('用户名不能为空');
-                return false; 
-        	}
-        	else if($('#UserName').val().length < 5){  
-                $('#UserName').parent().parent()  
-                    .removeClass()
-                    .addClass("form-group has-error");  
-                $('#unf').text('请输入正确的用户名');
-                return false;  
-            }
-            else{  
-                $('#UserName').parent().parent()  
-                    .removeClass()
-                    .addClass("form-group has-success");  
-                $('#unf').text('');
-                return true;  
-            }    
-        }
- 
- 
-        function confirmpwd(){
-        	if($('#ConfirmPassword').val()==$('#Password').val()){
-        		$('#ConfirmPassword').parent().parent()  
-                    .removeClass()//验证成功后出现一个对号的小图标  
-                    .addClass("form-group has-success");  
-                $('#cfpf').text('');
-                return true; 
-        	}else{  
-                $('#ConfirmPassword').parent().parent()  
-                    .removeClass()//验证成功后出现一个对号的小图标  
-                    .addClass("form-group has-error");  
-                $('#cfpf').text('两次输入的密码不一致');
-                return false;  
-            }  
-        }
-
-
-        function checksms(){
-        	if($('#sms').val()==''){
-        		$('#sms').parent().parent()  
-                    .removeClass() 
-                    .addClass("form-group has-error");  
-                $('#smsf').text('请填写收到的短信验证码');
-                return false; 
-        	} 
-            else{  
-                $('#sms').parent().parent()  
-                    .removeClass()
-                    .addClass("form-group has-success");  
-                $('#smsf').text('');
-                return true;  
-            }      
-        }
         function getSMSfuc(){
-        	if(checkuser()){  
-                //TODO  sent SMS
-
-
-
-
-               
-                //cooldown
-                var btn = $('#getSMS');
-                btn.attr('disabled', 'disabled');
-                $("#Password").removeAttr('disabled')
-                $("#ConfirmPassword").removeAttr('disabled')
-				var txt = btn.text();
-				var count = 60;
-				var func = function() {
-				    if (count == 0) {
-				        btn.removeAttr('disabled');
-				        btn.removeClass() 
-                    		.addClass("btn btn-info pull-right");
-				        btn.text(txt);
-				    } else {
-				    	btn.removeClass() 
-                    .addClass("btn btn-default pull-right"); 
-				        btn.text(txt + ' (' + count + ')');
-				        count--;
-				        setTimeout(func, 1000);
-				    }
-				};
-				setTimeout(func, 0);
-                }  
-
-
-
-                return false;  
+            $("#Password").removeAttr('disabled')
+            $("#ConfirmPassword").removeAttr('disabled')
         }
-
         $(function(){  
           	$('#head').load('head.html') 
           	$('#footer').load('footer.html') 
-            $("#UserName").change(function(){checkuser();});  
+          /*  $("#UserName").change(function(){checkuser();});  
             $("#Password").change(function(){checkpd();});  
             //$("#Phone").change(function(){checkphone();}); 
             $("#ConfirmPassword").change(function(){confirmpwd();});   
             $("#sms").change(function(){checksms();}); 
             //$("#Salesman").change(function(){checksman();});   
-            //提交按钮事件，false:不能提交，抑制提交按钮  
+            //提交按钮事件，false:不能提交，抑制提交按钮  */
+            $('form').bootstrapValidator({
+    　　　　　　　　message: '该字段不能为空',
+                    fields:{
+                        Username: {
+                             message:'用户名无效',
+                             validators: {
+                                 notEmpty: {
+                                     message: '用户名不能为空'
+                                 },
+                                 stringLength: {
+                                     min: 6,
+                                     max: 12,
+                                     message: '用户名长度必须在6-12位之间'
+                                 },
+                                 regexp: {
+                                     regexp: /^[a-zA-Z0-9_\.]+$/,
+                                     message: '用户名只能用字母和数字组成'
+                                 },
+                                 threshold :  6 ,
+                             }
+                         },
+                    }
+            });
             $("#submit").click(function(){  
                 if(checkuser() && checkpd()  &&confirmpwd()
                 	//&& checksman()
@@ -281,20 +182,12 @@
             
         });
 	</script>
-    <script src="js/bootstrap.js"></script>
+
 	<script src="js/owl.carousel.js"></script>
 	<script src="js/script.js"></script>
 	<!-- StikyMenu -->
-	<script src="js/stickUp.min.js"></script>
-	<script type="text/javascript">
-	  jQuery(function($) {
-		$(document).ready( function() {
-		  $('.navbar-default').stickUp();
-		  
-		});
-	  });
 	
-	</script>
+
 	<!-- Smoothscroll -->
 	<script type="text/javascript" src="js/jquery.corner.js"></script> 
 	<script src="js/wow.min.js"></script>
