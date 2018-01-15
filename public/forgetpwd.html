@@ -1,0 +1,343 @@
+ <!-- FlatFy Theme - Andrea Galanti /-->
+<!doctype html>
+<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en"> <![endif]-->
+<!--[if IE 9]>    <html class="no-js ie9" lang="en"> <![endif]-->
+<!--[if gt IE 9]><!--> <html> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+    <meta name="description" content="Flatfy Free Flat and Responsive HTML5 Template ">
+    <meta name="author" content="">
+
+     <title>以太战舰-区块链集换式卡牌游戏|Ether Warship</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+ 
+    <!-- Custom Google Web Font -->
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Arvo:400,700' rel='stylesheet' type='text/css'>
+	
+    <!-- Custom CSS-->
+    <link href="css/general.css" rel="stylesheet">
+	
+	 <!-- Owl-Carousel -->
+    <link href="css/custom.css" rel="stylesheet">
+	<link href="css/owl.carousel.css" rel="stylesheet">
+    <link href="css/owl.theme.css" rel="stylesheet">
+	<link href="css/style.css" rel="stylesheet">
+	<link href="css/animate.css" rel="stylesheet">
+	
+	<!-- Magnific Popup core CSS file -->
+	<link rel="stylesheet" href="css/magnific-popup.css"> 
+	
+	<script src="js/modernizr-2.6.2.min.js"></script>  <!-- Modernizr /-->
+</head>
+
+<body id="home">
+
+	<!-- Preloader -->
+	<div id="preloader">
+		<div id="status"></div>
+	</div>
+	
+    
+	
+	<div id='head'></div>
+
+	
+
+	<!--先做一个假的找回密码页面 -->
+	
+	
+
+
+	
+	
+	<div  class="content-section-b " style="background-color: #f8f8f8">
+		<div class="container">
+			<div class="col-md-6 col-md-offset-3 text-center wrap_title">
+				<h2 style="font-size: 36px">找回密码</h2>
+				<p class="lead" style="margin-top:0">Find My Password</p>
+                <p class="lead" style="margin-top:0">请用注册时绑定的手机接收验证码</p>
+			 </div>
+			<form role="form" action="" onsubmit="" method="post" name="loginForm">
+				<div class="col-md-6 col-md-offset-3">
+					<div class="form-group ">
+						<label for="UserName">用户名</label>
+						<a id="unf" class='lead3' style="color: #ff3f3f"></a>
+						<div class="input-group col-sm-12">
+							<input type="text" class="form-control" name="UserName" id="UserName" placeholder="输入用户名" required>
+							<span class="input-group-addon"><i class="glyphicon glyphicon-ok form-control-feedback"></i></span>
+						</div>
+					</div>
+					
+					
+					
+					<div class="form-group">
+						<label for="sms">验证码</label>
+						<a id="smsf" class='lead3' style="color: #ff3f3f"></a>
+						<div class="input-group  col-sm-12">
+							<input type="text" class="form-control col-sm-8 pull-left" id="sms" name="sms" placeholder="输入验证码" required >
+							<span class="input-group-addon col-sm-offset-1"><i class="glyphicon glyphicon-ok form-control-feedback"></i></span>
+							<a  id='getSMS' type="button" class=" btn btn-info pull-right" onclick='getSMSfuc()' >获取验证码</a>
+						</div>
+					</div>
+                    <div class="form-group">
+                        <label for="Password">新密码</label>
+                        <a id="psdf" class='lead3' style="color: #ff3f3f"></a>
+                        <div class="input-group  col-sm-12">
+                            <input type="password" class="form-control" id="Password" name="Password" placeholder="输入新的密码" required disabled>
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-ok form-control-feedback"></i></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="ConfirmPassword">确认密码</label>                           
+                        <a id="cfpf" class='lead3' style="color: #ff3f3f"></a>
+                        <div class="input-group  col-sm-12">
+                            <input type="password" class="form-control" id="ConfirmPassword" name="ConfirmPassword" placeholder="确认密码" required disabled>
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-ok form-control-feedback"></i></span>
+                        </div>
+                    </div>
+					
+
+					<input type="submit" name="submit" id="submit" value="修改密码" class="btn wow tada btn-embossed btn-primary pull-right">
+				</div>
+			</form>
+			
+		</div>
+	</div>	
+
+	<div id='footer'></div>
+	
+	
+	
+
+
+    <!-- JavaScript -->
+    <script src="js/jquery-1.10.2.js"></script>
+    <script>
+		function checkInput(txt){                              
+            if(txt.val()==""){  
+                txt.parent().parent()  
+                    .removeClass()
+                    .addClass("form-group has-error");  
+                return false;  
+            }else{  
+                txt.parent().parent()  
+                    .removeClass() 
+                    .addClass("form-group has-success");  
+                
+                return true;  
+            }  
+        }
+        function checkpd(){
+        	if($('#Password').val()==''){
+        		$('#Password').parent().parent()  
+                    .removeClass() 
+                    .addClass("form-group has-error");  
+                $('#psdf').text('密码不能为空');
+                return false; 
+        	}
+        	else if($('#Password').val().length < 8){  
+                $('#Password').parent().parent()  
+                    .removeClass()
+                    .addClass("form-group has-error");  
+                $('#psdf').text('密码不能短于8位');
+                return false;  
+            }
+            else{  
+                $('#Password').parent().parent()  
+                    .removeClass()
+                    .addClass("form-group has-success");  
+                $('#psdf').text('');
+                return true;  
+            }    
+        }
+        
+        function checkuser(){
+        	if($('#UserName').val()==''){
+        		$('#UserName').parent().parent()  
+                    .removeClass() 
+                    .addClass("form-group has-error");  
+                $('#unf').text('用户名不能为空');
+                return false; 
+        	}
+        	else if($('#UserName').val().length < 5){  
+                $('#UserName').parent().parent()  
+                    .removeClass()
+                    .addClass("form-group has-error");  
+                $('#unf').text('请输入正确的用户名');
+                return false;  
+            }
+            else{  
+                $('#UserName').parent().parent()  
+                    .removeClass()
+                    .addClass("form-group has-success");  
+                $('#unf').text('');
+                return true;  
+            }    
+        }
+ 
+ 
+        function confirmpwd(){
+        	if($('#ConfirmPassword').val()==$('#Password').val()){
+        		$('#ConfirmPassword').parent().parent()  
+                    .removeClass()//验证成功后出现一个对号的小图标  
+                    .addClass("form-group has-success");  
+                $('#cfpf').text('');
+                return true; 
+        	}else{  
+                $('#ConfirmPassword').parent().parent()  
+                    .removeClass()//验证成功后出现一个对号的小图标  
+                    .addClass("form-group has-error");  
+                $('#cfpf').text('两次输入的密码不一致');
+                return false;  
+            }  
+        }
+
+
+        function checksms(){
+        	if($('#sms').val()==''){
+        		$('#sms').parent().parent()  
+                    .removeClass() 
+                    .addClass("form-group has-error");  
+                $('#smsf').text('请填写收到的短信验证码');
+                return false; 
+        	} 
+            else{  
+                $('#sms').parent().parent()  
+                    .removeClass()
+                    .addClass("form-group has-success");  
+                $('#smsf').text('');
+                return true;  
+            }      
+        }
+        function getSMSfuc(){
+        	if(checkuser()){  
+                //TODO  sent SMS
+
+
+
+
+               
+                //cooldown
+                var btn = $('#getSMS');
+                btn.attr('disabled', 'disabled');
+                $("#Password").removeAttr('disabled')
+                $("#ConfirmPassword").removeAttr('disabled')
+				var txt = btn.text();
+				var count = 60;
+				var func = function() {
+				    if (count == 0) {
+				        btn.removeAttr('disabled');
+				        btn.removeClass() 
+                    		.addClass("btn btn-info pull-right");
+				        btn.text(txt);
+				    } else {
+				    	btn.removeClass() 
+                    .addClass("btn btn-default pull-right"); 
+				        btn.text(txt + ' (' + count + ')');
+				        count--;
+				        setTimeout(func, 1000);
+				    }
+				};
+				setTimeout(func, 0);
+                }  
+
+
+
+                return false;  
+        }
+
+        $(function(){  
+          	$('#head').load('head.html') 
+          	$('#footer').load('footer.html') 
+            $("#UserName").change(function(){checkuser();});  
+            $("#Password").change(function(){checkpd();});  
+            //$("#Phone").change(function(){checkphone();}); 
+            $("#ConfirmPassword").change(function(){confirmpwd();});   
+            $("#sms").change(function(){checksms();}); 
+            //$("#Salesman").change(function(){checksman();});   
+            //提交按钮事件，false:不能提交，抑制提交按钮  
+            $("#submit").click(function(){  
+                if(checkuser() && checkpd()  &&confirmpwd()
+                	//&& checksman()
+              		 && checkphone() &&checksms()){  
+                    //信息填写完整
+
+                //先做假的找回密码，这个功能什么都没有
+                //TODO submit through ajax
+                	return true;
+                }
+                else{
+                	return false;  
+                }  
+                
+            }); 
+            
+        });
+	</script>
+    <script src="js/bootstrap.js"></script>
+	<script src="js/owl.carousel.js"></script>
+	<script src="js/script.js"></script>
+	<!-- StikyMenu -->
+	<script src="js/stickUp.min.js"></script>
+	<script type="text/javascript">
+	  jQuery(function($) {
+		$(document).ready( function() {
+		  $('.navbar-default').stickUp();
+		  
+		});
+	  });
+	
+	</script>
+	<!-- Smoothscroll -->
+	<script type="text/javascript" src="js/jquery.corner.js"></script> 
+	<script src="js/wow.min.js"></script>
+	<script>
+	 new WOW().init();
+	</script>
+	<script src="js/classie.js"></script>
+	<script src="js/uiMorphingButton_inflow.js"></script>
+	<!-- Magnific Popup core JS file -->
+	<script src="js/jquery.magnific-popup.js"></script> 
+
+	<script type="text/javascript">
+
+		function checkLogin(){  
+            if(checkUsername() && checkPassword()){  
+                 alert("请输入密码")
+                 return true;  
+             }          
+            return false;  
+        }  
+        //检查登录用户名  
+        function checkUsername(){  
+            var username = document.loginForm.UserName;  
+            if(username.value.length!=0){  
+                return true;  
+            }else{  
+                alert("用户名不能为空");  
+                return false;  
+            }  
+        }  
+        //检查登录密码  
+        function checkPassword(){  
+            var password = document.loginForm.Password;  
+            if(password.value.length!=0){  
+                return true;  
+            }else{  
+                alert("密码不能为空");  
+                return false;  
+            }  
+        }
+	</script> 
+
+
+</body>
+
+</html>

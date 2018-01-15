@@ -44,42 +44,7 @@
 		<div id="status"></div>
 	</div>
 	
-	<!-- FullScreen -->
-    <div class="content-section-c" style="padding: 50px 0">
-		<div class="text-center wrap_title white">
-				<h2 class="section-heading" style="margin-top:0">以太战舰</h2>
-				<p class="lead">区块链集换式卡牌游戏</p>
-			 </div> 
-        
-    </div>
-	
-	<!-- NavBar-->
-	<nav class="navbar-default" role="navigation" >
-		<div class="container">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-					<span class="sr-only">Toggle navigation</span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				</button>
-				<a class="navbar-brand" href="#home">以太战舰</a>
-			</div>
-
-			<div class="collapse navbar-collapse navbar-right navbar-ex1-collapse">
-				<ul class="nav navbar-nav">
-					
-					<li class="menuItem"><a href="#whatis">What is?</a></li>
-					<li class="menuItem"><a href="#useit">Use It</a></li>
-					<li class="menuItem"><a href="#screen">Screenshot</a></li>
-					<li class="menuItem"><a href="#credits">Credits</a></li>
-					<li class="menuItem"><a href="#contact">Contact</a></li>
-				</ul>
-			</div>
-		   
-		</div>
-	</nav> 
-	
+	<div id='head'></div>
 	
 	
 
@@ -131,6 +96,7 @@
     <script src="js/jquery-1.10.2.js"></script>
     <script>
 		$(function(){
+			$('#head').load('head.html') 
 			$('#footer').load('footer.html')
 		})
 	</script>

@@ -44,39 +44,7 @@
 		<div id="status"></div>
 	</div>
 	
-	<!-- FullScreen -->
-    <div class="content-section-c" style="padding: 50px 0">
-		<div class="text-center wrap_title white">
-				<h2 class="section-heading" style="margin-top:0">以太战舰</h2>
-				<p class="lead">区块链集换式卡牌游戏</p>
-			 </div> 
-        
-    </div>
-	
-	<!-- NavBar-->
-	<nav class="navbar-default" role="navigation" >
-		<div class="container">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-					<span class="sr-only">Toggle navigation</span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				</button>
-				<a class="navbar-brand" href="index.html">以太战舰</a>
-			</div>
-
-			<div class="collapse navbar-collapse navbar-right navbar-ex1-collapse">
-				<ul class="nav navbar-nav">
-					
-					<li class="menuItem"><a href="#home">What is?</a></li>
-					<li class="menuItem"><a href="#useit">Use It</a></li>
-
-				</ul>
-			</div>
-		   
-		</div>
-	</nav> 
+	<div id='head'></div>
 	
 	
 	<div class="content-section-a">
@@ -95,28 +63,72 @@
                 	 <h3 class="section-heading">
 						首发福利，推广即得创世战舰
 					</h3>
-					 <p>
+					<p>
 						 &#12288
 					</p>
                   
-                    <p>
-						 您的推广链接为：
-					</p>
                     <p class="lead">
-						邀请3位好友加入即得护卫舰一艘。
+						 您的推广ID为：
 					</p>
-					<p class="lead">
-						邀请10位好友加入即得驱逐舰一艘。
+					<form role="form">
+					  <div class="form-group">
+					    <label for="AmwayID">邀请您的好友注册凭借此邀请ID注册</label>
+					    <textarea id='AmwayID' class="form-control" rows="1"></textarea>
+					    
+					  </div>
+					  <button  id='copyAmwayID' type="button" class=" btn btn-info pull-right" onclick='copyAID()' >复制推广ID</button>
+					  <p>
+						 &#12288
 					</p>
-					 
-					<p class="lead">
-						邀请100位好友加入即得轻型巡洋舰一艘。
-					</p>
-					<p class="lead">
-						邀请100位好友加入即得重型巡洋舰一艘。
+					</form>
+
+
+					<form role="form">
+					  <div class="form-group">
+					    <label for="AmwayURL">或直接由以下链接注册</label>
+					    <textarea id='AmwayURL' class="form-control" rows="1"></textarea>
+					  </div>
+					  <button  id='copyAmwayURL' type="button" class=" btn btn-info pull-right" onclick='copyAURL()' >复制推广链接</button>
+						
+					</form>
+
+					
+					
+					
+
+					<p>
+						 &#12288
 					</p>
 
+
+                    <p class="lead3">
+						-邀请3位好友加入即得护卫舰一艘。
+					</p>
+					<p class="lead3">
+						-邀请10位好友加入即得驱逐舰一艘。
+					</p>
 					 
+					<p class="lead3">
+						-邀请100位好友加入即得轻型巡洋舰一艘。
+					</p>
+					<p class="lead3">
+						-邀请100位好友加入即得重型巡洋舰一艘。
+					</p>
+
+					<p class="lead3">
+						-邀请100位好友加入即得重型巡洋舰一艘。
+					</p>
+					<p class="lead3">
+						-邀请1000位好友加入即得至尊战列舰一艘。
+					</p>
+
+					<p>
+						 &#12288
+					</p>
+
+					<p >
+						游戏正式上线后将关闭推广得舰渠道。
+					</p>
 				</div>   
             </div>
         </div>
@@ -134,7 +146,16 @@
     <!-- JavaScript -->
     <script src="js/jquery-1.10.2.js"></script>
  	 <script>
+ 	 	function copyAID(){
+ 	 		$('#AmwayID').select();
+ 	 		document.execCommand("Copy"); 
+ 	 	}
+ 	 	function copyAURL(){
+ 	 		$('#AmwayURL').select();
+ 	 		document.execCommand("Copy"); 
+ 	 	}
 		$(function(){
+			$('#head').load('head.html') 
 			$('#footer').load('footer.html')
 		})
 	</script>

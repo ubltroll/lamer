@@ -44,41 +44,12 @@
 		<div id="status"></div>
 	</div>
 	
-	<!-- FullScreen -->
-    <div class="content-section-c" style="padding: 50px 0">
-		<div class="text-center wrap_title white">
-				<h2 class="section-heading" style="margin-top:0">以太战舰</h2>
-				<p class="lead">区块链集换式卡牌游戏</p>
-			 </div> 
-        
-    </div>
+    
 	
-	<!-- NavBar-->
-	<nav class="navbar-default" role="navigation" >
-		<div class="container">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-					<span class="sr-only">Toggle navigation</span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				</button>
-				<a class="navbar-brand" href="#home">以太战舰</a>
-			</div>
+	<div id='head'></div>
 
-			<div class="collapse navbar-collapse navbar-right navbar-ex1-collapse">
-				<ul class="nav navbar-nav">
-					
-					<li class="menuItem"><a href="#whatis">What is?</a></li>
-					<li class="menuItem"><a href="#useit">Use It</a></li>
-					<li class="menuItem"><a href="#screen">Screenshot</a></li>
-					<li class="menuItem"><a href="#credits">Credits</a></li>
-					<li class="menuItem"><a href="#contact">Contact</a></li>
-				</ul>
-			</div>
-		   
-		</div>
-	</nav> 
+	
+
 	
 	
 	
@@ -92,7 +63,7 @@
 				<h2 style="font-size: 36px">注册</h2>
 				<p class="lead" style="margin-top:0">Sign Up</p>
 			 </div>
-			<form role="form" action="" onsubmit="return checkLogin(this)" method="post" name="loginForm">
+			<form role="form" action="" onsubmit="" method="post" name="loginForm">
 				<div class="col-md-6 col-md-offset-3">
 					<div class="form-group ">
 						<label for="UserName">用户名</label>
@@ -140,9 +111,9 @@
 						<label for="sms">验证码</label>
 						<a id="smsf" class='lead3' style="color: #ff3f3f"></a>
 						<div class="input-group  col-sm-12">
-							<input type="text" class="form-control col-sm-5" id="sms" name="sms" placeholder="输入验证码" required >
-							<span class="input-group-addon"><i class="glyphicon glyphicon-ok form-control-feedback"></i></span>
-							<a class=" btn btn-embossed btn-info pull-right" href="#">获取验证码</a>
+							<input type="text" class="form-control col-sm-8 pull-left" id="sms" name="sms" placeholder="输入验证码" required >
+							<span class="input-group-addon col-sm-offset-1"><i class="glyphicon glyphicon-ok form-control-feedback"></i></span>
+							<a  id='getSMS' type="button" class=" btn btn-info pull-right" onclick='getSMSfuc()' >获取验证码</a>
 						</div>
 					</div>
 					
@@ -183,7 +154,7 @@
                     .removeClass() 
                     .addClass("form-group has-error");  
                 $('#psdf').text('密码不能为空');
-                return true; 
+                return false; 
         	}
         	else if($('#Password').val().length < 8){  
                 $('#Password').parent().parent()  
@@ -197,7 +168,7 @@
                     .removeClass()
                     .addClass("form-group has-success");  
                 $('#psdf').text('');
-                return false;  
+                return true;  
             }    
         }
         function checkphone(){
@@ -206,7 +177,7 @@
                     .removeClass() 
                     .addClass("form-group has-error");  
                 $('#phonef').text('手机号不能为空');
-                return true; 
+                return false; 
         	}
         	else if(!(/^1[34578]\d{9}$/.test($('#Phone').val()))){  
                 $('#Phone').parent().parent()  
@@ -220,7 +191,7 @@
                     .removeClass()
                     .addClass("form-group has-success");  
                 $('#phonef').text('');
-                return false;  
+                return true;  
             }    
         }
         function checksman(){
@@ -229,53 +200,24 @@
                     .removeClass() 
                     .addClass("form-group has-error");  
                 $('#smanf').text('邀请人id有误');
-                return true; 
+                return false; 
         	}
             else{  
                 $('#Salesman').parent().parent()  
                     .removeClass()
                     .addClass("form-group has-success");  
                 $('#smanf').text('');
-                return false;  
+                return true;  
             }    
         }
-        function checksms(){
-        	if(!checkphone()){
-        		$('#sms').parent().parent()  
-                    .removeClass() 
-                    .addClass("form-group has-error");  
-                $('#smsf').text('请先填写手机号');
-                return true; 
-        	}
-        	else if($('#sms').val()==''){
-        		$('#sms').parent().parent()  
-                    .removeClass() 
-                    .addClass("form-group has-error");  
-                $('#smsf').text('手机号不能为空');
-                return true; 
-        	}
-        	else if(!(/^1[34578]\d{9}$/.test($('#sms').val()))){  
-                $('#sms').parent().parent()  
-                    .removeClass()
-                    .addClass("form-group has-error");  
-                $('#smsf').text('手机号填写格式有误');
-                return false;  
-            }
-            else{  
-                $('#sms').parent().parent()  
-                    .removeClass()
-                    .addClass("form-group has-success");  
-                $('#smsf').text('');
-                return false;  
-            }      
-        }
+        
         function checkuser(){
         	if($('#UserName').val()==''){
         		$('#UserName').parent().parent()  
                     .removeClass() 
                     .addClass("form-group has-error");  
                 $('#unf').text('用户名不能为空');
-                return true; 
+                return false; 
         	}
         	else if($('#UserName').val().length < 5){  
                 $('#UserName').parent().parent()  
@@ -289,7 +231,7 @@
                     .removeClass()
                     .addClass("form-group has-success");  
                 $('#unf').text('');
-                return false;  
+                return true;  
             }    
         }
  
@@ -309,8 +251,69 @@
                 return false;  
             }  
         }
+
+
+        function checksms(){
+        	if(!checkphone()){
+        		$('#sms').parent().parent()  
+                    .removeClass() 
+                    .addClass("form-group has-error");  
+                $('#smsf').text('请先填写手机号');
+                return false; 
+        	}
+        	else if($('#sms').val()==''){
+        		$('#sms').parent().parent()  
+                    .removeClass() 
+                    .addClass("form-group has-error");  
+                $('#smsf').text('请填写收到的短信验证码');
+                return false; 
+        	} 
+            else{  
+                $('#sms').parent().parent()  
+                    .removeClass()
+                    .addClass("form-group has-success");  
+                $('#smsf').text('');
+                return true;  
+            }      
+        }
+        function getSMSfuc(){
+        	if(checkuser() && checkpd() &&confirmpwd() && checkphone()){  
+                //TODO  sent SMS
+
+
+
+
+               
+                //cooldown
+                var btn = $('#getSMS');
+                btn.attr('disabled', 'disabled');
+               
+				var txt = btn.text();
+				var count = 60;
+				var func = function() {
+				    if (count == 0) {
+				        btn.removeAttr('disabled');
+				        btn.removeClass() 
+                    		.addClass("btn btn-info pull-right");
+				        btn.text(txt);
+				    } else {
+				    	btn.removeClass() 
+                    .addClass("btn btn-default pull-right"); 
+				        btn.text(txt + ' (' + count + ')');
+				        count--;
+				        setTimeout(func, 1000);
+				    }
+				};
+				setTimeout(func, 0);
+                }  
+
+
+
+                return false;  
+        }
+
         $(function(){  
-          //逐一的验证 
+          	$('#head').load('head.html') 
           	$('#footer').load('footer.html') 
             $("#UserName").change(function(){checkuser();});  
             $("#Password").change(function(){checkpd();});  
@@ -318,19 +321,23 @@
             $("#ConfirmPassword").change(function(){confirmpwd();});   
             $("#sms").change(function(){checksms();}); 
             //$("#Salesman").change(function(){checksman();});   
-              
             //提交按钮事件，false:不能提交，抑制提交按钮  
             $("#submit").click(function(){  
-                if(checkuser() && checkpd()  
+                if(checkuser() && checkpd()  &&confirmpwd()
                 	//&& checksman()
-               && checkphone() &&checksms()){  
+              		 && checkphone() &&checksms()){  
                     //信息填写完整
 
 
-                //todo submit through ajax
+                //TODO submit through ajax
+                	return true;
+                }
+                else{
+                	return false;  
                 }  
-                return false;  
-            });  
+                
+            }); 
+            
         });
 	</script>
     <script src="js/bootstrap.js"></script>
