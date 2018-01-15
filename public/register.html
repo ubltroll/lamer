@@ -89,13 +89,14 @@
 	<div  class="content-section-b " style="background-color: #f8f8f8">
 		<div class="container">
 			<div class="col-md-6 col-md-offset-3 text-center wrap_title">
-				<h2 style="font-size: 36px">登陆</h2>
-				<p class="lead" style="margin-top:0">Login</p>
+				<h2 style="font-size: 36px">注册</h2>
+				<p class="lead" style="margin-top:0">Sign Up</p>
 			 </div>
 			<form role="form" action="" onsubmit="return checkLogin(this)" method="post" name="loginForm">
 				<div class="col-md-6 col-md-offset-3">
 					<div class="form-group ">
 						<label for="UserName">用户名</label>
+						<a id="unf" class='lead3' style="color: #ff3f3f"></a>
 						<div class="input-group col-sm-12">
 							<input type="text" class="form-control" name="UserName" id="UserName" placeholder="输入用户名" required>
 							<span class="input-group-addon"><i class="glyphicon glyphicon-ok form-control-feedback"></i></span>
@@ -104,13 +105,15 @@
 					
 					<div class="form-group">
 						<label for="Password">输入密码</label>
+						<a id="psdf" class='lead3' style="color: #ff3f3f"></a>
 						<div class="input-group  col-sm-12">
 							<input type="password" class="form-control" id="Password" name="Password" placeholder="输入密码" required >
 							<span class="input-group-addon"><i class="glyphicon glyphicon-ok form-control-feedback"></i></span>
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="ConfirmPassword">确认密码</label>
+						<label for="ConfirmPassword">确认密码</label>							
+						<a id="cfpf" class='lead3' style="color: #ff3f3f"></a>
 						<div class="input-group  col-sm-12">
 							<input type="password" class="form-control" id="ConfirmPassword" name="ConfirmPassword" placeholder="确认密码" required >
 							<span class="input-group-addon"><i class="glyphicon glyphicon-ok form-control-feedback"></i></span>
@@ -118,25 +121,33 @@
 					</div>
 					<div class="form-group">
 						<label for="Salesman">邀请人</label>
+						<a id="smanf" class='lead3' style="color: #ff3f3f"></a>
 						<div class="input-group col-sm-12">
-							<input type="text" class="form-control" name="Salesman" id="Salesman" placeholder="输入用户名">
+							<input type="text" class="form-control" name="Salesman" id="Salesman" placeholder="输入邀请人">
 							<span class="input-group-addon"><i class="glyphicon glyphicon-ok form-control-feedback"></i></span>
 						</div>
 					</div>
 					
 					<div class="form-group">
 						<label for="Phone">手机号</label>
+						<a id="phonef" class='lead3' style="color: #ff3f3f"></a>
 						<div class="input-group  col-sm-12">
-							<input type="text" class="form-control" id="Phone" name="Phone" placeholder="输入密码" required >
+							<input type="text" class="form-control" id="Phone" name="Phone" placeholder="输入手机号" required >
 							<span class="input-group-addon"><i class="glyphicon glyphicon-ok form-control-feedback"></i></span>
 						</div>
 					</div>
-					
+					<div class="form-group">
+						<label for="sms">验证码</label>
+						<a id="smsf" class='lead3' style="color: #ff3f3f"></a>
+						<div class="input-group  col-sm-12">
+							<input type="text" class="form-control col-sm-5" id="sms" name="sms" placeholder="输入验证码" required >
+							<span class="input-group-addon"><i class="glyphicon glyphicon-ok form-control-feedback"></i></span>
+							<a class=" btn btn-embossed btn-info pull-right" href="#">获取验证码</a>
+						</div>
+					</div>
 					
 
-					<input type="submit" name="submit" id="submit" value="登陆" class="btn wow tada btn-embossed btn-primary pull-left">
-					<a class="col-md-offset-1 btn btn-embossed btn-primary col-sm-offset-1">忘记密码</a>
-					<a class=" btn btn-embossed btn-info col-sm-offset-5">立刻注册1</a>
+					<input type="submit" name="submit" id="submit" value="注册" class="btn wow tada btn-embossed btn-primary pull-right">
 				</div>
 			</form>
 			
@@ -152,49 +163,171 @@
     <!-- JavaScript -->
     <script src="js/jquery-1.10.2.js"></script>
     <script>
-		function checkInput(txt){  
-                     //追加样式是先移除样式表后追加                             
+		function checkInput(txt){                              
             if(txt.val()==""){  
                 txt.parent().parent()  
-                    .removeClass()//为空，出现一个x的小图标  
+                    .removeClass()
                     .addClass("form-group has-error");  
                 return false;  
             }else{  
                 txt.parent().parent()  
-                    .removeClass()//验证成功后出现一个对号的小图标  
+                    .removeClass() 
                     .addClass("form-group has-success");  
                 
                 return true;  
             }  
-        } 
+        }
+        function checkpd(){
+        	if($('#Password').val()==''){
+        		$('#Password').parent().parent()  
+                    .removeClass() 
+                    .addClass("form-group has-error");  
+                $('#psdf').text('密码不能为空');
+                return true; 
+        	}
+        	else if($('#Password').val().length < 8){  
+                $('#Password').parent().parent()  
+                    .removeClass()
+                    .addClass("form-group has-error");  
+                $('#psdf').text('密码不能短于8位');
+                return false;  
+            }
+            else{  
+                $('#Password').parent().parent()  
+                    .removeClass()
+                    .addClass("form-group has-success");  
+                $('#psdf').text('');
+                return false;  
+            }    
+        }
+        function checkphone(){
+        	if($('#Phone').val()==''){
+        		$('#Phone').parent().parent()  
+                    .removeClass() 
+                    .addClass("form-group has-error");  
+                $('#phonef').text('手机号不能为空');
+                return true; 
+        	}
+        	else if(!(/^1[34578]\d{9}$/.test($('#Phone').val()))){  
+                $('#Phone').parent().parent()  
+                    .removeClass()
+                    .addClass("form-group has-error");  
+                $('#phonef').text('手机号填写格式有误');
+                return false;  
+            }
+            else{  
+                $('#Phone').parent().parent()  
+                    .removeClass()
+                    .addClass("form-group has-success");  
+                $('#phonef').text('');
+                return false;  
+            }    
+        }
+        function checksman(){
+        	if($('#Salesman').val().length!= 5){
+        		$('#Salesman').parent().parent()  
+                    .removeClass() 
+                    .addClass("form-group has-error");  
+                $('#smanf').text('邀请人id有误');
+                return true; 
+        	}
+            else{  
+                $('#Salesman').parent().parent()  
+                    .removeClass()
+                    .addClass("form-group has-success");  
+                $('#smanf').text('');
+                return false;  
+            }    
+        }
+        function checksms(){
+        	if(!checkphone()){
+        		$('#sms').parent().parent()  
+                    .removeClass() 
+                    .addClass("form-group has-error");  
+                $('#smsf').text('请先填写手机号');
+                return true; 
+        	}
+        	else if($('#sms').val()==''){
+        		$('#sms').parent().parent()  
+                    .removeClass() 
+                    .addClass("form-group has-error");  
+                $('#smsf').text('手机号不能为空');
+                return true; 
+        	}
+        	else if(!(/^1[34578]\d{9}$/.test($('#sms').val()))){  
+                $('#sms').parent().parent()  
+                    .removeClass()
+                    .addClass("form-group has-error");  
+                $('#smsf').text('手机号填写格式有误');
+                return false;  
+            }
+            else{  
+                $('#sms').parent().parent()  
+                    .removeClass()
+                    .addClass("form-group has-success");  
+                $('#smsf').text('');
+                return false;  
+            }      
+        }
+        function checkuser(){
+        	if($('#UserName').val()==''){
+        		$('#UserName').parent().parent()  
+                    .removeClass() 
+                    .addClass("form-group has-error");  
+                $('#unf').text('用户名不能为空');
+                return true; 
+        	}
+        	else if($('#UserName').val().length < 5){  
+                $('#UserName').parent().parent()  
+                    .removeClass()
+                    .addClass("form-group has-error");  
+                $('#unf').text('用户名不能短于5个字符');
+                return false;  
+            }
+            else{  
+                $('#UserName').parent().parent()  
+                    .removeClass()
+                    .addClass("form-group has-success");  
+                $('#unf').text('');
+                return false;  
+            }    
+        }
+ 
+ 
         function confirmpwd(){
         	if($('#ConfirmPassword').val()==$('#Password').val()){
         		$('#ConfirmPassword').parent().parent()  
                     .removeClass()//验证成功后出现一个对号的小图标  
                     .addClass("form-group has-success");  
-                
+                $('#cfpf').text('');
                 return true; 
         	}else{  
                 $('#ConfirmPassword').parent().parent()  
                     .removeClass()//验证成功后出现一个对号的小图标  
                     .addClass("form-group has-error");  
-                
+                $('#cfpf').text('两次输入的密码不一致');
                 return false;  
             }  
         }
         $(function(){  
           //逐一的验证 
           	$('#footer').load('footer.html') 
-            $("#UserName").change(function(){checkInput($("#UserName"));});  
-            $("#Password").change(function(){checkInput($("#Password"));});  
-            $("#Phone").change(function(){checkInput($("#Phone"));}); 
+            $("#UserName").change(function(){checkuser();});  
+            $("#Password").change(function(){checkpd();});  
+            $("#Phone").change(function(){checkphone();}); 
             $("#ConfirmPassword").change(function(){confirmpwd();});   
+            $("#sms").change(function(){checksms();}); 
+            //$("#Salesman").change(function(){checksman();});   
               
             //提交按钮事件，false:不能提交，抑制提交按钮  
             $("#submit").click(function(){  
-                if(checkInput($("#UserName")) && checkInput($("#Password")) &&  
-                checkInput($("#Phone"))){  
-                    return true;  
+                if(checkuser() && checkpd()  
+                	//&& checksman()
+               && checkphone() &&checksms()){  
+                    //信息填写完整
+
+
+                //todo submit through ajax
                 }  
                 return false;  
             });  
