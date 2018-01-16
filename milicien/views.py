@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login
@@ -6,10 +7,12 @@ from django.http import HttpResponse
 from django.contrib.auth import logout
 from django.http import HttpResponseRedirect  
 import json
+import random
+import requests
 
 # Create your views here.
 def index(request):
-    return render(request,'index.html', {})
+    return render(request,'index.html', {'NumForShow': User.objects.count()+181500})
 
 def login1(request):
    	return render(request,'login.html', {})
@@ -28,6 +31,48 @@ def findpsd(request):
 
 def learn(request):
     return render(request,'1min2ews.html', {})
+
+#random SMS
+def godsays(phone):
+    x=int(phone) % 958
+    b1=round(100000/x+1)
+    b2=round(1000000/x+1)
+    y=random.randint(b1,b2)*x
+    return str(y).zfill(6)
+def godjudges(phone,sms):
+    x=int(phone) % 958
+    a=int(sms)
+    if a % x:
+        return False
+    else:
+        return True
+
+
+
+def SentSMS(request):
+    phone = request.POST['phone']
+    dic={}
+
+    
+    if phone.isdigit() and len(phone)==11:
+        code=godsays(phone)
+        smstext='您的验证码为'+code+'，请在5分钟内完成注册。【以太战舰】'
+        resp = requests.post("http://sms-api.luosimao.com/v1/send.json",
+            auth=("api", "key-442199e5d02324bc7d1ff2a2f675882e"),
+            data={
+            "mobile": phone,
+            "message": smstext
+            },timeout=3 , verify=False)
+        result =  json.loads( resp.content )
+        dic['msg'] = 'ok'
+        dic['success'] = True
+        jstr = result
+        return HttpResponse(jstr, content_type='application/json')
+    dic['msg'] = '手机号无效'
+    dic['success'] = False
+    jstr = json.dumps(dic)
+    return HttpResponse(jstr, content_type='application/json')
+
 
 def CheckName(request):
     username = request.POST['Username']
@@ -55,20 +100,13 @@ def CheckPhone(request):
 
 
 def test(request):
-	dic={}
-	dic[msg]=''
-	jstr = json.dumps(dic)
-	return HttpResponse(jstr, content_type='application/json')
-
-
-def CheckMan(request):
-    sms = request.POST['sms']
     dic={}
-    dic['valid'] = False
-    
-    	
+    uid=request.user.id
+    dic['msg']=uid
     jstr = json.dumps(dic)
     return HttpResponse(jstr, content_type='application/json')
+
+
 
 def CheckEmail(request):
     email = request.POST['email']
@@ -92,11 +130,11 @@ def LogMeIn(request):
     if user is not None:
         login(request, user)
         dic['success'] = True
-        dic['msg'] = 'mmp'
+        dic['msg'] = user.id
 
     else:
     	dic['success'] = False
-    	dic['msg'] = password
+    	dic['msg'] = 'failed'
 
     jstr = json.dumps(dic)
     return HttpResponse(jstr, content_type='application/json')
@@ -107,18 +145,27 @@ def SignMeUp(request):
     email = request.POST['email']
     phone =	request.POST['phone']
     AmwayID =	request.POST['AmwayID']
+    sms =   request.POST['sms']
+    dic={}
+    if not godjudges(phone,sms):
+        dic['success'] = False
+        dic['msg'] = '短信验证码错误'
+        jstr = json.dumps(dic)
+        return HttpResponse(jstr, content_type='application/json')
+
     user = User.objects.create_user(username,email,password)
-    user.first_name = AmwayID
-    user.last_name = phone
+    
     dic={}
     if user is not None:
+        user.first_name = AmwayID
+        user.last_name = phone
         user.save()
         dic['success'] = True
-        dic['msg'] = password
+        dic['msg'] = '注册成功'
 
     else:
-        dic['success'] = True
-        dic['msg'] = username
+        dic['success'] = False
+        dic['msg'] = '未知错误'
 
     jstr = json.dumps(dic)
     return HttpResponse(jstr, content_type='application/json')

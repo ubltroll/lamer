@@ -116,7 +116,7 @@
 		      }).then(function(resp) {
 		        if(resp.success) {
 		          alert('登录成功');
-		          //TODO 跳转到登录后的页面
+		          window.location.href='/home/';
 		        }else{
 		          alert(resp.msg);
 		        }

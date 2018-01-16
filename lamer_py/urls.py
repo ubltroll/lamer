@@ -31,6 +31,9 @@ urlpatterns = [
     path('register/CheckName', views.CheckName),
     path('register/CheckEmail', views.CheckEmail),
     path('register/CheckPhone', views.CheckPhone),
+  #  path('register/CheckSMS', views.CheckSMS),
+    path('test', views.test),
+    path('register/null', views.SentSMS),  #伪装
     path('home/', views.home),
     path('findmypwd/', views.findpsd),
     path('learn/', views.learn),

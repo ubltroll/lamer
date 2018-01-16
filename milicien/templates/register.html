@@ -61,7 +61,7 @@
                         pattern="1[34578]\d{9}"
                         data-bv-regexp-message="请输入正确的11位手机号"/>
                     </div>
-              <!--      <div class="form-group">
+                    <div class="form-group">
                         <label for="sms">验证码</label>
                         <div class="form-inline row">
                         
@@ -74,7 +74,7 @@
                                 <button  id='getSMS' type="button" class="wow tada btn btn-info" onclick='getSMSfuc()' >获取验证码</button> 
                             </div> 
                         </div>
-                    </div>-->
+                    </div>
                     <div class="form-group">
                         <label for="sms"> </label>
                         <input type="submit" name="submit" id="submit" value="注册" class=" btn-block btn  btn-embossed btn-primary">
@@ -105,12 +105,12 @@
     <script src="/static/js/stickUp.min.js"></script>
     <script src="https://cdn.bootcss.com/bootstrap-validator/0.5.3/js/bootstrapValidator.min.js"></script>
     <script>
-        function cooldown(){   //冷却获取验证码按钮
+        function cooldown(time){   //冷却获取验证码按钮
             var btn = $('#getSMS');
                 btn.attr('disabled', 'disabled');
                
                 var txt = btn.text();
-                var count = 60;
+                var count = time;
                 var func = function() {
                     if (count == 0) {
                         btn.removeAttr('disabled');
@@ -131,27 +131,25 @@
 
         }
         function getSMSfuc(){
-            phone=$('#Phone').val()
-        /*	if(!(/^1[34578]\d{9}$/.test(phone))){  
+            phone=$('#Phone').val();
+        	if((/^1[34578]\d{9}$/.test(phone))){  
                 //TODO  sent SMS
-
-                alert('请输入正确的11位手机号');
-                return false; 
-				
-                }  
-
-                cooldown();
-                
-                return false;  */
-            $.ajax({
-                                url: '/test/',
+              
+                        $.ajax({
+                                url: '/register/null',
                                 type: 'post',
                                 headers:{"X-CSRFToken":$.cookie('csrftoken')},
                                 data: 
-                                    $('form').serialize(),
+                                    {phone: phone,}
                               }).then(function(resp) {
-                                alert(resp.msg);
+                                
+                                cooldown(60);
                               })
+				
+                }  
+  
+            
+
             return false;
         }
 
@@ -159,6 +157,7 @@
           	$('#head').load('/static/head.html', function() {
               FlatfyInit();
               $('.navbar-default').stickUp();
+              cooldown(10);
             });
           	$('#footer').load('/static/footer.html');
             
@@ -187,11 +186,12 @@
                                  
                                  //TODO
                                  remote: {//ajax验证。server result:{"valid",true or false} 向服务发送当前input name值，获得一个json数据。例表示正确：{"valid",true}  
-                                     url: '/register/CheckName',//验证地址
-                                     message: '用户已存在',//提示消息
-                                     delay :  2000,
-                                     headers:{"X-CSRFToken":$.cookie('csrftoken')},
-                                     type: 'POST'//发送的信息是用户输入的用户名
+                                             url: '/register/CheckName',//验证地址
+                                             message: '用户已存在',//提示消息
+                                             delay :  2000,
+                                             headers:{"X-CSRFToken":$.cookie('csrftoken')},
+                                             type: 'POST',//发送的信息是用户输入的用户名
+
                                          }
                              },
                          },
@@ -261,17 +261,12 @@
                                 message:'验证码错误',
                                 validators: {
                                      regexp: {
-                                         regexp: /^[0-9]+$/,
+                                         regexp: /^[0-9]{6}$/,
                                          message: '验证码格式错误'
                                      },
-                                     threshold :  4 ,
+                                     
                                      //TODO
-                                     remote: {//ajax验证。server result:{"valid",true or false} 向服务发送当前input name值，获得一个json数据。例表示正确：{"valid",true}  
-                                         url: 'TODO',//验证地址
-                                         message: '用户已存在',//提示消息
-                                         delay :  2000,
-                                         type: 'POST'//发送的信息是用户输入的验证码
-                                             }
+
                                     }
                                 },
                         }
@@ -290,7 +285,7 @@
                                     $('form').serialize(),
                               }).then(function(resp) {
                                 if(resp.success) {
-                                  alert('登录成功');
+                                  alert(resp.msg);
                                   window.location.href='/home/';
                                 }else{
                                   alert(resp.msg);
