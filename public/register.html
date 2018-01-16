@@ -132,6 +132,10 @@
     <!-- JavaScript -->
     <script src="js/jquery-1.10.2.js"></script>
     <script src="js/bootstrap.js"></script>
+    <script src="js/owl.carousel.js"></script>
+    
+    <script src="js/script.js"></script>
+    <script src="js/stickUp.min.js"></script>
     <script src="https://cdn.bootcss.com/bootstrap-validator/0.5.3/js/bootstrapValidator.min.js"></script>
     <script>
         function cooldown(){   //冷却获取验证码按钮
@@ -175,8 +179,11 @@
         }
 
         $(function(){  
-          	$('#head').load('head.html') 
-          	$('#footer').load('footer.html') 
+          	$('#head').load('head.html', function() {
+              FlatfyInit();
+              $('.navbar-default').stickUp();
+            });
+          	$('#footer').load('footer.html');
             
             //$("#Salesman").change(function(){checksman();});   
             //提交按钮事件，false:不能提交，抑制提交按钮  
@@ -286,16 +293,18 @@
 
 	</script>
     
-	<script src="js/script.js"></script>
+
 	
 
 	<!-- Smoothscroll -->
-	<script type="text/javascript" src="js/jquery.corner.js"></script> 
+
 	<script src="js/wow.min.js"></script>
 	<script>
 	 new WOW().init();
 	</script>
-	
+	<script src="js/uiMorphingButton_inflow.js"></script>
+    <!-- Magnific Popup core JS file -->
+    <script src="js/jquery.magnific-popup.js"></script> 
 
 
 

@@ -125,6 +125,9 @@
     <!-- JavaScript -->
     <script src="js/jquery-1.10.2.js"></script>
     <script src="js/bootstrap.js"></script>
+    <script src="js/owl.carousel.js"></script>
+    <script src="js/stickUp.min.js"></script>
+    <script src="js/script.js"></script>
     <script src="https://cdn.bootcss.com/bootstrap-validator/0.5.3/js/bootstrapValidator.min.js"></script>
     <script>
         function getSMSfuc(){
@@ -132,7 +135,10 @@
             $("#ConfirmPassword").removeAttr('disabled')
         }
         $(function(){  
-          	$('#head').load('head.html') 
+          	$('#head').load('head.html', function() {
+              FlatfyInit();
+              $('.navbar-default').stickUp();
+            });
           	$('#footer').load('footer.html') 
           /*  $("#UserName").change(function(){checkuser();});  
             $("#Password").change(function(){checkpd();});  
@@ -183,13 +189,11 @@
         });
 	</script>
 
-	<script src="js/owl.carousel.js"></script>
-	<script src="js/script.js"></script>
-	<!-- StikyMenu -->
+
 	
 
 	<!-- Smoothscroll -->
-	<script type="text/javascript" src="js/jquery.corner.js"></script> 
+
 	<script src="js/wow.min.js"></script>
 	<script>
 	 new WOW().init();

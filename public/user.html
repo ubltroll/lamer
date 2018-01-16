@@ -155,8 +155,11 @@
  	 		document.execCommand("Copy"); 
  	 	}
 		$(function(){
-			$('#head').load('head.html') 
-			$('#footer').load('footer.html')
+			$('#head').load('head.html', function() {
+			  FlatfyInit();
+			  $('.navbar-default').stickUp();
+			});
+			$('#footer').load('footer.html');
 		})
 	</script>
     <script src="js/bootstrap.js"></script>
@@ -164,18 +167,10 @@
 	<script src="js/script.js"></script>
 	<!-- StikyMenu -->
 	<script src="js/stickUp.min.js"></script>
-	<script type="text/javascript">
-	  jQuery(function($) {
-		$(document).ready( function() {
-		  $('.navbar-default').stickUp();
-		  
-		});
-	  });
 	
-	</script>
 
 	<!-- Smoothscroll -->
-	<script type="text/javascript" src="js/jquery.corner.js"></script> 
+
 	<script src="js/wow.min.js"></script>
 	<script>
 	 new WOW().init();

@@ -95,13 +95,18 @@
     <script src="js/stickUp.min.js"></script>
     <script src="js/bootstrap.js"></script>
     <script src="js/bootstrapValidator.min.js"></script>
-
+    <script src="js/owl.carousel.js"></script>
+    <script src="js/stickUp.min.js"></script>
 	<script src="js/script.js"></script>
+
     <script>
 		$(function(){
-			$('#head').load('head.html');
 			$('#footer').load('footer.html');
-			
+			$('#head').load('head.html', function() {
+			  FlatfyInit();
+			$('.navbar-default').stickUp();
+		  
+			});
 			$('form').bootstrapValidator({
     　　　　　　　　message: '该字段不能为空',
     				fields:{
@@ -127,7 +132,7 @@
                          },
                     }
 			});
-			$('.navbar-default').stickUp();
+			
 		})
 		$('#submit').on('click', function() {
 		      console.log('mmp');
@@ -151,7 +156,7 @@
 	
 
 	<!-- Smoothscroll -->
-	<script type="text/javascript" src="js/jquery.corner.js"></script> 
+
 	<script src="js/wow.min.js"></script>
 	<script>
 	 new WOW().init();
