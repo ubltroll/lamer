@@ -16,15 +16,16 @@ const https = require('https');
 
 const getSmsOption = (content) => {
   return {
-    host:'sms-api.luosimao.com',
-    path:'/v1/send.json',
-    method:'POST',
-    auth:'api:key-442199e5d02324bc7d1ff2a2f675882e',
-    agent:false,
-    rejectUnauthorized : false,
-    headers:{
-    'Content-Type' : 'application/x-www-form-urlencoded',
-    'Content-Length' :content.length
+      host:'sms-api.luosimao.com',
+      path:'/v1/send.json',
+      method:'POST',
+      auth:'api:key-442199e5d02324bc7d1ff2a2f675882e',
+      agent:false,
+      rejectUnauthorized : false,
+      headers:{
+      'Content-Type' : 'application/x-www-form-urlencoded',
+      'Content-Length' :content.length
+    }
   }
 }
 
@@ -138,3 +139,7 @@ const userController = {
 }
 
 module.exports = userController;
+
+
+
+
