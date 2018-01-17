@@ -15,18 +15,36 @@ def index(request):
     return render(request,'index.html', {'NumForShow': User.objects.count()+181500})
 
 def login1(request):
-   	return render(request,'login.html', {})
+    if not request.user.is_anonymous:
+        return HttpResponseRedirect("/home/")
+    return render(request,'login.html', {})
 
 
-def register(request):
-    return render(request,'register.html', {})
+def register(request,invitorID=''):
+    if not request.user.is_anonymous:
+        return HttpResponseRedirect("/home/")
+    return render(request,'register.html', {"invitorID":invitorID})
 
 @login_required(login_url='/login/')
 def home(request):
-    return render(request,'user.html', {})
+    if(request.user.is_anonymous):
+        return HttpResponseRedirect("/index/")
+    AmwayUsers=User.objects.filter(first_name=str(request.user.id))
+    Amway=[]
+    for man in AmwayUsers:
+        cellphone=man.last_name
+        if len(cellphone)==11:
+            cellphone=cellphone[:3]+'****'+cellphone[7:]
+        Amway.append(cellphone)
+
+    num=len(Amway)
+
+    return render(request,'user.html', {'username':request.user.username,'amwayid':request.user.id+5800,'amwayresult':Amway,'num':num})#用户id加5800为推广ID
 
 
 def findpsd(request):
+    if not request.user.is_anonymous:
+        return HttpResponseRedirect("/home/")
     return render(request,'forgetpwd.html', {})
 
 def learn(request):
@@ -157,7 +175,8 @@ def SignMeUp(request):
     
     dic={}
     if user is not None:
-        user.first_name = AmwayID
+        if int(AmwayID)>5799:
+            user.first_name = AmwayID
         user.last_name = phone
         user.save()
         dic['success'] = True

@@ -25,9 +25,11 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('index/', views.index),
     path('login/', views.login1),
+    path('FAQ/', views.index), #TODO
     path('LogMeIn/', views.LogMeIn),
     path('SignMeUp/', views.SignMeUp),
     path('register/', views.register),
+    path('<int:invitorID>', views.register),
     path('register/CheckName', views.CheckName),
     path('register/CheckEmail', views.CheckEmail),
     path('register/CheckPhone', views.CheckPhone),
